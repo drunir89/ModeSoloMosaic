@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mosaic - Herobotus Companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Écran de configuration principal -->
+        <div id="setup-screen" class="card">
+            <h1><i class="fas fa-puzzle-piece"></i> Mosaic Automa</h1>
+            
+            <div class="setup-section">
+                <h2>Configuration rapide</h2>
+                <div class="setup-form">
+                    <label><i class="fas fa-chart-line"></i> Niveau de Difficulté :</label>
+                    <select id="select-difficulte" class="form-select">
+                        <option value="enfantin">👶 Enfantin</option>
+                        <option value="modere" selected>⚖️ Modéré</option>
+                        <option value="coriace">🛡️ Coriace</option>
+                        <option value="expert">🏆 Expert</option>
+                    </select>
+
+                    <label><i class="fas fa-crown"></i> Conseiller d'Herobotus :</label>
+                    <select id="select-conseiller" class="form-select">
+                        <option value="General">⚔️ Général</option>
+                        <option value="Scribe">📜 Scribe</option>
+                        <option value="Philosophe">🤔 Philosophe</option>
+                        <option value="Artiste">🎨 Artiste</option>
+                        <option value="Magistrat">⚖️ Magistrat</option>
+                        <option value="Ingenieur">🏗️ Ingénieur</option>
+                        <option value="Marchand">💰 Marchand</option>
+                        <option value="Pretresse">🕊️ Prêtresse</option>
+                        <option value="Agriculteur">🌾 Agriculteur</option>
+                    </select>
+
+                    <label><i class="fas fa-globe-asia"></i> Niveau d'Expansion :</label>
+                    <select id="select-expansion" class="form-select">
+                        <option value="isolationniste">🏝️ Isolationniste</option>
+                        <option value="intermediaire" selected>⚖️ Intermédiaire</option>
+                        <option value="agressif">⚔️ Agressif</option>
+                    </select>
+                    
+                    <button id="btn-start-setup" class="btn-main"><i class="fas fa-play"></i> Configuration complète</button>
+                    <button id="btn-start-quick" class="btn-alt"><i class="fas fa-bolt"></i> Configuration rapide</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Écran de mise en place détaillée -->
+        <div id="setup-detailed-screen" class="card" style="display:none;">
+            <h2><i class="fas fa-tools"></i> Mise en place détaillée</h2>
+            
+            <div class="setup-steps">
+                <!-- Étape 1: Berceau Herobotus -->
+                <div class="setup-step" id="step-berceau-hero">
+                    <h3>1️⃣ Berceau d'Herobotus</h3>
+                    <p>Tirez une carte Berceau de Civilisation :</p>
+                    <div class="region-selector" id="hero-cradle-selector"></div>
+                    <p class="step-info"><i class="fas fa-info-circle"></i> Placez un marqueur Population d'Herobotus dans cette région.</p>
+                </div>
+
+                <!-- Étape 2: Cités de départ Herobotus -->
+                <div class="setup-step" id="step-cites-hero" style="display:none;">
+                    <h3>2️⃣ Cités de départ d'Herobotus</h3>
+                    <p>Tirez une deuxième carte Berceau :</p>
+                    <div class="region-selector" id="hero-second-berceau"></div>
+                    <p class="step-info"><i class="fas fa-info-circle"></i> Placez une Cité d'Herobotus sur le jeton Cache de plus grande valeur dans chaque région.</p>
+                    <button id="btn-validate-hero-cities" class="btn-small" disabled><i class="fas fa-check"></i> Valider les cités</button>
+                </div>
+
+                <!-- Étape 3: Ressources de départ Herobotus -->
+                <div class="setup-step" id="step-ressources-hero" style="display:none;">
+                    <h3>3️⃣ Ressources de départ d'Herobotus</h3>
+                    <div id="hero-ressources-info" class="step-info"></div>
+                    <div class="ressources-allocation">
+                        <label>Jetons ressource à attribuer :</label>
+                        <div class="res-allocation-control">
+                            <span>💡 Idée:</span>
+                            <input type="number" id="hero-idee-start" value="0" min="0" max="5" readonly>
+                            <button class="btn-icon" onclick="adjustHeroRessource('idee', 1)"><i class="fas fa-plus"></i></button>
+                            <button class="btn-icon" onclick="adjustHeroRessource('idee', -1)"><i class="fas fa-minus"></i></button>
+                        </div>
+                        <div class="res-allocation-control">
+                            <span>🪨 Pierre:</span>
+                            <input type="number" id="hero-pierre-start" value="0" min="0" max="5" readonly>
+                            <button class="btn-icon" onclick="adjustHeroRessource('pierre', 1)"><i class="fas fa-plus"></i></button>
+                            <button class="btn-icon" onclick="adjustHeroRessource('pierre', -1)"><i class="fas fa-minus"></i></button>
+                        </div>
+                        <div class="res-allocation-control">
+                            <span>🌾 Nourriture:</span>
+                            <input type="number" id="hero-nourriture-start" value="0" min="0" max="5" readonly>
+                            <button class="btn-icon" onclick="adjustHeroRessource('nourriture', 1)"><i class="fas fa-plus"></i></button>
+                            <button class="btn-icon" onclick="adjustHeroRessource('nourriture', -1)"><i class="fas fa-minus"></i></button>
+                        </div>
+                    </div>
+                    <button id="btn-validate-hero-ressources" class="btn-small" disabled><i class="fas fa-check"></i> Valider les ressources</button>
+                </div>
+
+                <!-- Étape 4: Berceau joueur -->
+                <div class="setup-step" id="step-berceau-joueur" style="display:none;">
+                    <h3>4️⃣ Votre Berceau</h3>
+                    <p>Choisissez une région DIFFÉRENTE de celles d'Herobotus :</p>
+                    <div class="region-selector" id="player-berceau"></div>
+                </div>
+
+                <!-- Étape 5: Joueur statique -->
+                <div class="setup-step" id="step-statique" style="display:none;">
+                    <h3>5️⃣ Joueur statique</h3>
+                    <p>Tirez deux cartes Berceau pour le joueur statique :</p>
+                    
+                    <div class="statique-region" id="statique-region-1">
+                        <h4>Première région</h4>
+                        <div class="region-selector statique-select" id="statique-select-1"></div>
+                        <div class="statique-placement">
+                            <p><i class="fas fa-check-circle"></i> Placez une Cité sur le jeton Cache de plus faible valeur</p>
+                            <p><i class="fas fa-check-circle"></i> Placez un Village Manufacturier sur un hexagone adjacent sans jeton</p>
+                            <p><i class="fas fa-check-circle"></i> Placez une deuxième Cité adjacente</p>
+                            <p><i class="fas fa-check-circle"></i> Placez un deuxième Village Manufacturier adjacent</p>
+                        </div>
+                    </div>
+                    
+                    <div class="statique-region" id="statique-region-2">
+                        <h4>Deuxième région</h4>
+                        <div class="region-selector statique-select" id="statique-select-2"></div>
+                        <div class="statique-placement">
+                            <p><i class="fas fa-check-circle"></i> Placez une Cité sur le jeton Cache de plus faible valeur</p>
+                            <p><i class="fas fa-check-circle"></i> Placez un Village Agricole adjacent</p>
+                            <p><i class="fas fa-check-circle"></i> Placez une deuxième Cité adjacente</p>
+                            <p><i class="fas fa-check-circle"></i> Placez un deuxième Village Agricole adjacent</p>
+                        </div>
+                    </div>
+                    
+                    <button id="btn-validate-statique" class="btn-small" disabled><i class="fas fa-check"></i> Valider le joueur statique</button>
+                </div>
+
+                <!-- Étape 6: Finalisation -->
+                <div class="setup-step" id="step-final" style="display:none;">
+                    <h3><i class="fas fa-check-circle" style="color: var(--success);"></i> Configuration terminée !</h3>
+                    <p>Récapitulatif :</p>
+                    <ul id="setup-recap"></ul>
+                    <button id="btn-start-game" class="btn-main"><i class="fas fa-play"></i> Commencer la partie</button>
+                </div>
+            </div>
+            
+            <button id="btn-back-to-main" class="btn-alt"><i class="fas fa-arrow-left"></i> Retour</button>
+        </div>
+
+        <!-- Écran de jeu -->
+        <main id="game-screen" style="display:none;">
+            <div class="top-bar">
+                <div id="info-header" class="info-tag"></div>
+                <button id="btn-reset" class="btn-reset"><i class="fas fa-home"></i> Quitter</button>
+            </div>
+
+            <!-- Indicateurs de mise en place -->
+            <div class="setup-indicators">
+                <div class="indicator" id="indicator-hero-cradle">
+                    <span class="indicator-label"><i class="fas fa-baby"></i> Berceau H:</span>
+                    <span class="indicator-value" id="hero-cradle">-</span>
+                </div>
+                <div class="indicator" id="indicator-hero-cities">
+                    <span class="indicator-label"><i class="fas fa-city"></i> Cités H:</span>
+                    <span class="indicator-value" id="hero-cities-list">-</span>
+                </div>
+                <div class="indicator" id="indicator-static-cities">
+                    <span class="indicator-label"><i class="fas fa-chess-board"></i> Statique:</span>
+                    <span class="indicator-value" id="static-cities-list">-</span>
+                </div>
+            </div>
+
+            <!-- Ressources joueur -->
+            <section class="resources-grid">
+                <div class="res-control">
+                    <span class="res-icon">💡</span>
+                    <span class="res-value" id="res-idee">3</span>
+                    <div class="btn-group-res">
+                        <button class="btn-res-minus"><i class="fas fa-minus"></i></button>
+                        <button class="btn-res-plus"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="res-control">
+                    <span class="res-icon">🪨</span>
+                    <span class="res-value" id="res-pierre">2</span>
+                    <div class="btn-group-res">
+                        <button class="btn-res-minus"><i class="fas fa-minus"></i></button>
+                        <button class="btn-res-plus"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+                <div class="res-control">
+                    <span class="res-icon">🌾</span>
+                    <span class="res-value" id="res-nourriture">1</span>
+                    <div class="btn-group-res">
+                        <button class="btn-res-minus"><i class="fas fa-minus"></i></button>
+                        <button class="btn-res-plus"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Carte d'action -->
+            <div id="action-display" class="action-card-container">
+                <div class="card-inner">
+                    <div class="card-header">
+                        <h2 id="card-title"><i class="fas fa-dice-d6"></i> ACTION</h2>
+                    </div>
+                    <div class="card-body" id="card-content">
+                        <p class="placeholder-text"><i class="fas fa-arrow-right"></i> Appuyez sur "TOUR SUIVANT" pour commencer</p>
+                    </div>
+                    <div class="card-footer" id="card-priority-rule">
+                        <i class="fas fa-balance-scale"></i> Ex-aequo = Symbole conseiller
+                    </div>
+                </div>
+            </div>
+
+            <!-- Boutons de contrôle -->
+            <div class="controls">
+                <button id="btn-next" class="btn-main"><i class="fas fa-forward"></i> TOUR SUIVANT</button>
+                <button id="btn-loc" class="btn-alt"><i class="fas fa-map-marker-alt"></i> LIEU D'IMPLANTATION</button>
+                <button id="btn-open-score" class="btn-help"><i class="fas fa-trophy"></i> SCORE FINAL</button>
+            </div>
+            
+            <!-- Informations complémentaires -->
+            <div class="info-footer">
+                <div id="loc-display" class="info-badge"><i class="fas fa-map-pin"></i> Lieu : <span>-</span></div>
+                <div id="pending-display" class="info-badge"><i class="fas fa-hourglass-half"></i> Attente : <span>-</span></div>
+                <div id="deck-count" class="info-badge"><i class="fas fa-layer-group"></i> Cartes : <span>0</span></div>
+            </div>
+
+            <!-- Ressources et unités Herobotus avec icône casque romain -->
+            <div class="hero-resources">
+                <div class="hero-header">
+                    <div class="hero-icon"><i class="fas fa-helmet-battle"></i></div>
+                    <span>HEROBOTUS</span>
+                    
+                </div>
+                <div class="hero-resources-grid">
+                    <span>💡 <span id="hero-res-idee">0</span></span>
+                    <span>🪨 <span id="hero-res-pierre">0</span></span>
+                    <span>🌾 <span id="hero-res-nourriture">0</span></span>
+                    <span>💰 <span id="hero-res-argent">0</span></span>
+                </div>
+                <div class="hero-military">
+                    <span><i class="fas fa-shield-alt"></i> Infanterie: <span id="hero-infantry">0</span></span>
+                    <span><i class="fas fa-horse"></i> Cavalerie: <span id="hero-cavalry">0</span></span>
+                    <span><i class="fas fa-crosshairs"></i> Siège: <span id="hero-siege">0</span></span>
+                </div>
+            </div>
+
+            <!-- Piles de cartes Herobotus -->
+            <div class="hero-piles">
+                <div class="pile" id="pile-tech-symbole">
+                    <i class="fas fa-scroll"></i> PV/symbole: <span id="pile-tech-symbole-count">0</span>
+                </div>
+                <div class="pile" id="pile-tech-fixes">
+                    <i class="fas fa-book"></i> PV fixes: <span id="pile-tech-fixes-count">0</span>
+                </div>
+                <div class="pile" id="pile-projets">
+                    <i class="fas fa-draw-polygon"></i> Projets: <span id="pile-projets-count">0</span>
+                </div>
+                <div class="pile" id="pile-population">
+                    <i class="fas fa-users"></i> Population: <span id="pile-population-count">0</span>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal de score amélioré -->
+    <div id="modal-score" class="modal">
+        <div class="modal-content score-modal">
+            <span class="close-btn"><i class="fas fa-times"></i></span>
+            <h2><i class="fas fa-chart-pie"></i> Score Final</h2>
+            
+            <div class="difficulte-info" id="score-difficulte"></div>
+            
+            <!-- Navigation par onglets -->
+            <div class="score-tabs">
+                <button class="tab-btn active" data-tab="saisie"><i class="fas fa-pencil-alt"></i> Saisie</button>
+                <button class="tab-btn" data-tab="resultat"><i class="fas fa-trophy"></i> Résultat</button>
+                <button class="tab-btn" data-tab="hero"><i class="fas fa-robot"></i> Herobotus</button>
+            </div>
+            
+            <!-- Onglet 1 : Saisie des éléments -->
+            <div class="tab-content active" id="tab-saisie">
+                <h3><i class="fas fa-clipboard-list"></i> Inventaire de votre civilisation</h3>
+                <p class="tab-description">Saisissez le nombre d'éléments que vous avez collectés pendant la partie</p>
+                
+                <div class="score-categories">
+                    <!-- Catégorie Constructions -->
+                    <div class="score-category">
+                        <div class="category-header">
+                            <span class="category-icon">🏛️</span>
+                            <span class="category-title">Constructions</span>
+                        </div>
+                        <div class="category-fields">
+                            <div class="field-row">
+                                <label>🏛️ Cités :</label>
+                                <input type="number" id="sc-cites" value="0" min="0" class="score-input">
+                            </div>
+                            <div class="field-row">
+                                <label>🏡 Villages :</label>
+                                <input type="number" id="sc-villages" value="0" min="0" class="score-input">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Catégorie Technologies -->
+                    <div class="score-category">
+                        <div class="category-header">
+                            <span class="category-icon">🔬</span>
+                            <span class="category-title">Technologies</span>
+                        </div>
+                        <div class="category-fields">
+                            <div class="field-row">
+                                <label>📜 PV/symbole :</label>
+                                <input type="number" id="sc-tech-symbole" value="0" min="0" class="score-input">
+                            </div>
+                            <div class="field-row">
+                                <label>📚 PV fixes :</label>
+                                <input type="number" id="sc-tech-fixes" value="0" min="0" class="score-input">
+                                <span class="field-hint">Somme des PV</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Catégorie Projets et Succès -->
+                    <div class="score-category">
+                        <div class="category-header">
+                            <span class="category-icon">📜</span>
+                            <span class="category-title">Projets & Succès</span>
+                        </div>
+                        <div class="category-fields">
+                            <div class="field-row">
+                                <label>📐 Grands Projets :</label>
+                                <input type="number" id="sc-projets" value="0" min="0" class="score-input">
+                            </div>
+                            <div class="field-row">
+                                <label>🏅 Succès :</label>
+                                <input type="number" id="sc-succes" value="0" min="0" class="score-input">
+                            </div>
+                            <div class="field-row">
+                                <label>🏛️ Merveilles :</label>
+                                <input type="number" id="sc-merveilles" value="0" min="0" class="score-input">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Catégorie Ressources -->
+                    <div class="score-category">
+                        <div class="category-header">
+                            <span class="category-icon">💰</span>
+                            <span class="category-title">Ressources</span>
+                        </div>
+                        <div class="category-fields">
+                            <div class="field-row">
+                                <label>💰 Argent :</label>
+                                <input type="number" id="sc-argent" value="0" min="0" class="score-input">
+                            </div>
+                            <div class="field-row">
+                                <label>👥 Population :</label>
+                                <input type="number" id="sc-pop" value="0" min="0" class="score-input">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Catégorie Bonus -->
+                    <div class="score-category">
+                        <div class="category-header">
+                            <span class="category-icon">🏆</span>
+                            <span class="category-title">Bonus</span>
+                        </div>
+                        <div class="category-fields">
+                            <div class="field-row">
+                                <label>👑 Majorité Empire :</label>
+                                <input type="number" id="sc-empire" value="0" min="0" class="score-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="saisie-actions">
+                    <button id="btn-calculate-score" class="btn-calculate"><i class="fas fa-calculator"></i> Calculer mon score</button>
+                    <button id="btn-reset-saisie" class="btn-reset-saisie"><i class="fas fa-redo-alt"></i> Réinitialiser</button>
+                </div>
+            </div>
+            
+            <!-- Onglet 2 : Résultat final calculé -->
+            <div class="tab-content" id="tab-resultat">
+                <h3><i class="fas fa-trophy"></i> Votre score détaillé</h3>
+                
+                <div class="difficulte-rappel" id="difficulte-rappel"></div>
+                
+                <div class="resultat-categories" id="resultat-categories"></div>
+                
+                <div class="final-score-container">
+                    <div class="final-score-label">SCORE TOTAL</div>
+                    <div class="final-score-value" id="final-total">0</div>
+                    <div class="final-score-unit">PV</div>
+                </div>
+                
+                <button class="btn-back-to-saisie"><i class="fas fa-arrow-left"></i> Modifier ma saisie</button>
+            </div>
+            
+            <!-- Onglet 3 : Fiche Herobotus -->
+            <div class="tab-content" id="tab-hero">
+                <h3><span class="hero-modal-icon"><i class="fas fa-helmet-battle"></i></span> Fiche de score Herobotus</h3>
+                <p class="tab-description">Saisissez les éléments collectés par Herobotus</p>
+                
+                <div class="hero-score-categories">
+                    <!-- Catégorie Constructions Herobotus -->
+                    <div class="score-category">
+                        <div class="category-header">
+                            <span class="category-icon">🏛️</span>
+                            <span class="category-title">Constructions</span>
+                        </div>
+                        <div class="category-fields">
+                            <div class="field-row">
+                                <label>🏛️ Cités :</label>
+                                <input type="number" id="hero-cites" value="0" min="0" class="score-input">
+                            </div>
+                            <div class="field-row">
+                                <label>🏡 Villages :</label>
+                                <input type="number" id="hero-villages" value="0" min="0" class="score-input">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Catégorie Technologies Herobotus -->
+                    <div class="score-category">
+                        <div class="category-header">
+                            <span class="category-icon">🔬</span>
+                            <span class="category-title">Technologies</span>
+                        </div>
+                        <div class="category-fields">
+                            <div class="field-row">
+                                <label>📜 PV/symbole :</label>
+                                <input type="number" id="hero-tech-symbole" value="0" min="0" class="score-input">
+                            </div>
+                            <div class="field-row">
+                                <label>📚 PV fixes :</label>
+                                <input type="number" id="hero-tech-fixes" value="0" min="0" class="score-input">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Catégorie Projets et Succès Herobotus -->
+                    <div class="score-category">
+                        <div class="category-header">
+                            <span class="category-icon">📜</span>
+                            <span class="category-title">Projets & Succès</span>
+                        </div>
+                        <div class="category-fields">
+                            <div class="field-row">
+                                <label>📐 Projets :</label>
+                                <input type="number" id="hero-projets" value="0" min="0" class="score-input">
+                            </div>
+                            <div class="field-row">
+                                <label>🏅 Succès :</label>
+                                <input type="number" id="hero-succes" value="0" min="0" class="score-input">
+                            </div>
+                            <div class="field-row">
+                                <label>🏛️ Merveilles :</label>
+                                <input type="number" id="hero-merveilles" value="0" min="0" class="score-input">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Catégorie Ressources Herobotus -->
+                    <div class="score-category">
+                        <div class="category-header">
+                            <span class="category-icon">💰</span>
+                            <span class="category-title">Ressources</span>
+                        </div>
+                        <div class="category-fields">
+                            <div class="field-row">
+                                <label>💰 Argent :</label>
+                                <input type="number" id="hero-argent" value="0" min="0" class="score-input">
+                            </div>
+                            <div class="field-row">
+                                <label>👥 Population :</label>
+                                <input type="number" id="hero-pop" value="0" min="0" class="score-input">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Catégorie Bonus Herobotus -->
+                    <div class="score-category">
+                        <div class="category-header">
+                            <span class="category-icon">👑</span>
+                            <span class="category-title">Bonus</span>
+                        </div>
+                        <div class="category-fields">
+                            <div class="field-row">
+                                <label>👑 Majorité Empire :</label>
+                                <input type="number" id="hero-empire" value="0" min="0" class="score-input">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Catégorie Unités Militaires -->
+                    <div class="score-category">
+                        <div class="category-header">
+                            <span class="category-icon">⚔️</span>
+                            <span class="category-title">Unités Militaires</span>
+                        </div>
+                        <div class="category-fields">
+                            <div class="field-row">
+                                <label>⚔️ Infanterie :</label>
+                                <input type="number" id="hero-infantry-count" value="0" min="0" class="score-input">
+                            </div>
+                            <div class="field-row">
+                                <label>🐎 Cavalerie :</label>
+                                <input type="number" id="hero-cavalry-count" value="0" min="0" class="score-input">
+                            </div>
+                            <div class="field-row">
+                                <label>🏹 Siège :</label>
+                                <input type="number" id="hero-siege-count" value="0" min="0" class="score-input">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="saisie-actions">
+                    <button id="btn-calculate-hero-score" class="btn-calculate"><i class="fas fa-calculator"></i> Calculer score</button>
+                    <button id="btn-reset-hero" class="btn-reset-saisie"><i class="fas fa-redo-alt"></i> Réinitialiser</button>
+                </div>
+                
+                <div class="hero-score-result" id="hero-score-result" style="display:none;">
+                    <h4><i class="fas fa-chart-line"></i> Résultat Herobotus</h4>
+                    <div class="hero-score-details" id="hero-score-details"></div>
+                    <div class="hero-total" id="hero-total-calc"></div>
+                </div>
+            </div>
+            
+            <!-- Pied du modal -->
+            <div class="modal-footer">
+                <button class="btn-main btn-modal-close"><i class="fas fa-times"></i> Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
