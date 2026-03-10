@@ -1,0 +1,227 @@
+Avec plaisir ! Voici une fiche mémo complète pour l'utilisation de l'application **Mosaic - Herobotus Companion**.
+
+---
+
+# 📋 FICHE MÉMO - MOSAIC HEROBOTUS COMPANION
+
+## 1️⃣ **DÉMARRAGE & CONFIGURATION**
+
+### **Écran principal**
+- Sélectionnez le **Niveau de Difficulté** (Enfantin, Modéré, Coriace, Expert)
+- Choisissez le **Conseiller d'Herobotus** (9 options avec bonus spécifiques)
+- Définissez le **Niveau d'Expansion** (Isolationniste, Intermédiaire, Agressif)
+
+### **Deux options de configuration**
+- **Configuration complète** : Guide pas à pas pour la mise en place
+- **Configuration rapide** : Attribution aléatoire des régions (gain de temps)
+
+---
+
+## 2️⃣ **CONFIGURATION COMPLÈTE (6 ÉTAPES)**
+
+### **Étape 1 - Berceau d'Herobotus**
+- Sélectionnez la région de départ d'Herobotus
+- Placez physiquement un marqueur Population dans cette région
+
+### **Étape 2 - Cités de départ d'Herobotus**
+- Sélectionnez une deuxième région pour Herobotus
+- Placez une Cité dans chaque région (sur le jeton Cache de plus grande valeur)
+
+### **Étape 3 - Ressources de départ d'Herobotus**
+- Ajustez les ressources avec les boutons +/-
+- Valeurs par défaut : 3💡, 2🪨, 1🌾, 10💰
+- Validez quand les ressources correspondent à votre plateau
+
+### **Étape 4 - Votre Berceau**
+- Choisissez votre région de départ (différente de celles d'Herobotus)
+
+### **Étape 5 - Joueur statique**
+- Sélectionnez deux régions pour le joueur statique
+- Placez physiquement les cités et villages selon les instructions
+
+### **Étape 6 - Finalisation**
+- Vérifiez le récapitulatif
+- Lancez la partie
+
+---
+
+## 3️⃣ **ÉCRAN DE JEU**
+
+### **Indicateurs en haut**
+- **Berceau H** : Région de départ d'Herobotus
+- **Cités H** : Liste des régions avec cités Herobotus
+- **Statique** : Régions du joueur statique
+
+### **Carte d'action** (zone centrale)
+- Affiche la dernière carte piochée
+- **Bouton "TOUR SUIVANT"** : Pioche une nouvelle carte
+- Les cartes montrent :
+  - Le coût en ressources (🪨, 💡, 🌾)
+  - Les priorités d'action (1️⃣ 2️⃣ 3️⃣)
+  - Les conditions spéciales (SI / SINON)
+
+### **Boutons de contrôle**
+- **TOUR SUIVANT** : Pioche une carte action
+- **LIEU D'IMPLANTATION** : Pioche un lieu (région, pénurie, berceau)
+- **SCORE FINAL** : Ouvre le calculateur de score
+
+### **Informations en bas**
+- **Lieu** : Dernier lieu pioché
+- **Attente** : Carte en attente (Taxe ou Population)
+- **Cartes** : Nombre de cartes restantes dans le deck
+
+---
+
+## 4️⃣ **GESTION D'HEROBOTUS**
+
+### **Ressources Herobotus**
+- 💡 **Idée** - Pour les actions Technologie
+- 🪨 **Pierre** - Pour les actions Construction
+- 🌾 **Nourriture** - Pour les actions Taxe/Population
+- 💰 **Argent** - Pour le score final
+
+**Ajustement manuel** : Utilisez les boutons + et - à côté de chaque ressource pour corriger si nécessaire
+
+### **Unités militaires**
+- ⚔️ **Infanterie**
+- 🐎 **Cavalerie**
+- 🏹 **Engins de siège**
+
+*Gagnées lors des actions combinées ou de la carte Militaire*
+
+### **Piles de cartes**
+- 📜 **PV/symbole** : Technologies avec gain variable
+- 📚 **PV fixes** : Technologies à valeur fixe
+- 📐 **Projets** : Grands projets accumulés
+- 👥 **Population** : Cartes population
+
+---
+
+## 5️⃣ **ACTIONS SPÉCIFIQUES**
+
+### **Construction** (🪨 1 Pierre)
+1️⃣ Projet et Village
+2️⃣ Cité et Village
+3️⃣ Village + 1 Pierre
+
+*Si Herobotus n'a pas de Pierre → Production de 3 Pierres*
+
+### **Technologie** (💡 1 Idée)
+1️⃣ ? PV + à gauche
+2️⃣ 2PV/3PV + à gauche
+3️⃣ Le plus de symboles + à gauche
+
+*Si Herobotus n'a pas d'Idée → Production de 3 Idées*
+
+### **Militaire**
+- Place 1 Infanterie + 1 Cavalerie
+- + Prend la carte Technologie la plus à gauche
+- *Pas de coût en ressource*
+
+### **Impôt/Taxe & Population** (🌾 1 Nourriture)
+- **SI** l'autre carte est en attente → Action combinée + unité militaire
+- **SINON** → Met la carte en attente
+
+*Si Herobotus n'a pas de Nourriture → Production de 3 Nourritures*
+
+### **Remélanger**
+- Effet spécial du conseiller
+- +1 Merveille ou Succès aléatoire
+- Remélange le deck d'actions
+
+---
+
+## 6️⃣ **CONSEILLERS & BONUS**
+
+| Conseiller | Bonus | Effet Remélanger |
+|------------|-------|------------------|
+| ⚔️ Général | Action Militaire | Militaire |
+| 📜 Scribe | Action Militaire | Militaire |
+| 🤔 Philosophe | Action Technologie | Technologie |
+| 🎨 Artiste | Action Technologie | Technologie |
+| ⚖️ Magistrat | Construction (Cité/Village) | Construction |
+| 🏗️ Ingénieur | Construction (Projet/Village) | Construction |
+| 💰 Marchand | 10 pièces + coffre | Collecte argent |
+| 🕊️ Prêtresse | 10 pièces + coffre | Collecte argent |
+| 🌾 Agriculteur | Village Agricole | Village Agricole |
+
+---
+
+## 7️⃣ **CALCUL DU SCORE FINAL**
+
+### **Onglet "Saisie"** - Entrez vos données
+- 🏛️ **Cités** : Nombre total
+- 🏡 **Villages** : Nombre total
+- 📜 **Technologies PV/symbole** : Nombre de cartes
+- 📚 **Technologies PV fixes** : Somme des PV
+- 📐 **Grands Projets** : Nombre
+- 🏅 **Succès** : Nombre
+- 🏛️ **Merveilles** : Nombre
+- 💰 **Argent** : Total en votre possession
+- 👥 **Population** : Total sur vos cartes
+- 👑 **Majorité Empire** : PV bonus
+
+### **Onglet "Résultat"**
+- Visualisez le calcul détaillé
+- Total général en bas
+
+### **Onglet "Herobotus"**
+- Entrez les mêmes données pour Herobotus
+- Comparez les scores
+
+### **Coefficients par difficulté**
+| Difficulté | Tech | Projets | Succès | Merveilles | Argent | Pop |
+|------------|------|---------|--------|------------|--------|-----|
+| 👶 Enfantin | 3 | 3 | 3 | 5 | 20 | 10 |
+| ⚖️ Modéré | 6 | 6 | 6 | 8 | 10 | 5 |
+| 🛡️ Coriace | 8 | 8 | 8 | 10 | 7 | 6 |
+| 🏆 Expert | 10 | 10 | 10 | 12 | 5 | 4 |
+
+---
+
+## 8️⃣ **RACCOURCIS & ASTUCES**
+
+### **Boutons rapides**
+- **+ / -** : Ajuster les ressources à tout moment
+- **Configuration rapide** : Gagne du temps pour les parties habituelles
+- **Quitter** : Retour à l'écran de configuration
+
+### **Bonnes pratiques**
+- Vérifiez régulièrement les piles de cartes d'Herobotus
+- Ajustez manuellement les ressources si vous avez oublié un paiement
+- Utilisez l'onglet Herobotus pendant la partie pour anticiper son score
+
+### **Dépannage**
+- Si un bouton ne répond pas, vérifiez que vous êtes bien dans l'écran de jeu
+- Les ressources d'Herobotus se synchronisent automatiquement
+- En cas de doute, quittez et recommencez la configuration
+
+---
+
+## 9️⃣ **RAPPEL DES RÈGLES SPÉCIFIQUES**
+
+### **Herobotus ne peut pas**
+- Utiliser de tuiles Gouvernement ou Âge d'or
+- Obtenir des Merveilles/Succès sauf via la carte Remélanger
+- Avoir besoin de symboles pour jouer une Technologie
+
+### **Production de ressources**
+- Montant variable selon difficulté :
+  - Enfantin : 2 ressources
+  - Modéré : 3 ressources
+  - Coriace/Expert : 4 ressources
+
+### **Suprématie Impériale**
+- Priorité de retrait des unités : Siège → Cavalerie → Infanterie
+- 1 unité retirée par symbole militaire possédé
+
+---
+
+## 📱 **VERSION MOBILE**
+- L'interface s'adapte automatiquement à votre écran
+- Faites défiler verticalement pour voir toutes les informations
+- Les boutons sont adaptés au tactile
+
+---
+
+**Bon jeu !** 🏛️✨
